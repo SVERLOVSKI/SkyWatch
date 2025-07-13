@@ -7,7 +7,7 @@ interface ThemeToggleButtonProps {
 }
 
 const ThemeToggleButton: React.FC<ThemeToggleButtonProps> = ({ darkTheme, setDarkTheme }) => {
-  const [isToggled, setIsToggled] = useState<boolean>(false);
+  const [isToggled, setIsToggled] = useState<boolean>(!darkTheme);
 
   const handleToggle = () => {
     setIsToggled(!isToggled);

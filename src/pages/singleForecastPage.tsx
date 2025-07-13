@@ -4,15 +4,25 @@ import { getSelectedDayForecast, getDefaultCityData } from '../features/location
 import ThemeToggleButton from '../components/themeToggleButton/themeToggleButton'
 import SearchBar from '../components/searchBar/SearchBar'
 import './singleForecastPage.css'
-import { useState, useEffect } from 'react'
+import {useEffect } from 'react'
 import { Link } from 'react-router'
 
-const SingleForecastPage = () => {
-    const [darkTheme, setDarkTheme] = useState<boolean>(true)
+interface SingleForecastPageProps {
+    darkTheme: boolean
+    setDarkTheme: (darkTheme: boolean) => void
+}
+
+const SingleForecastPage:React.FC<SingleForecastPageProps> = ({darkTheme, setDarkTheme}) => {
     const date: {date?: string} = useParams()
     const selectedDay = useAppSelector(state => getSelectedDayForecast(state, date))
     const defaultWeatherData = useAppSelector(getDefaultCityData)
     let forecastList = null
+
+    const formateDate = (existingDate:string) => {
+        const date = new Date(existingDate);
+
+        return `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}.${date.getFullYear()}`;
+    }
 
     useEffect(() => {
             window.scrollTo(0, 0);
@@ -46,7 +56,7 @@ const SingleForecastPage = () => {
                 </div>
                 <ul className="day-forecast">
                     <h1 className="day-forecast-city">{defaultWeatherData?.name}</h1>
-                    <p className="day-forecast-date">Прогноз погоды на {selectedDay?.[0].hour[0].time.split(' ')[0]}</p>
+                    <p className="day-forecast-date">Прогноз погоды на {formateDate(selectedDay?.[0].hour[0].time.split(' ')[0] as unknown as string)}</p>
                     {forecastList}
                 </ul>
             </div>

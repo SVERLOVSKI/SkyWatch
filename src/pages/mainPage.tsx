@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link } from 'react-router'
 import ThemeToggleButton from '../components/themeToggleButton/themeToggleButton'
 import SearchBar from '../components/searchBar/SearchBar'
@@ -9,8 +9,12 @@ import { fetchLocation } from '../features/locationSlice'
 import { useAppDispatch } from '../app/hooks'
 import Spinner from '../components/spinner/spinner'
 
-export const MainPage = () => {
-    const [darkTheme, setDarkTheme] = useState<boolean>(true);
+interface MainPageProps {
+    darkTheme: boolean
+    setDarkTheme: (darkTheme:boolean) => void
+}
+
+export const MainPage:React.FC<MainPageProps> = ({darkTheme, setDarkTheme}) => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {

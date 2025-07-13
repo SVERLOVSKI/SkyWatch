@@ -6,6 +6,12 @@ import './Forecast.css'
 export const ForeCast = () => {
     const defaultWeatherData = useAppSelector(getDefaultForecastData);
 
+    const formateDate = (existingDate: string) => {
+        const date = new Date(existingDate);
+
+        return `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}`;
+    }
+
     const dailyForecast = defaultWeatherData?.forecastday.map((item, index) => {
         let selectedIndex = [1, 2, 3, 4, 5]
         let date = defaultWeatherData?.forecastday[index].date
@@ -14,7 +20,7 @@ export const ForeCast = () => {
             return (
                 <Link key={item.date} to={`/forecast/${date}`}>
                     <li className="forecast-item">
-                        <p className="item-date">{defaultWeatherData?.forecastday[index].date.slice(5)}</p>
+                        <p className="item-date">{formateDate(defaultWeatherData?.forecastday[index].date)}</p>
                         <img src={defaultWeatherData?.forecastday[index].day.condition.icon} alt="" className='item-icon inday' />
                         <p className="item-temperature">{defaultWeatherData?.forecastday[index].day.avgtemp_c}°C</p>
                         <p className="item-wind forecast">{defaultWeatherData?.forecastday[index].day.maxwind_kph}km/h</p>
@@ -29,7 +35,7 @@ export const ForeCast = () => {
 
     return (
         <div className="forecast-bar">
-            <h3 className="forecast-title">5 Days Forecast</h3>
+            <h3 className="forecast-title">2 Days Forecast</h3>
             <ul className="forecast-list">
                 {dailyForecast}
             </ul>

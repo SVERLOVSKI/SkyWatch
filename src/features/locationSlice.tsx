@@ -57,12 +57,12 @@ const initialState: DefaultState = {
 }
 
 export const fetchLocation = createAppAsyncThunk('location/fetchLocation', async () => {
-    const response = await axios.get<DefaultState>(`http://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY} &q=Москва&days=6&aqi=no&alerts=no`)
+    const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY} &q=Москва&days=6&aqi=no&alerts=no`)
     return response.data
 })
 
 export const fetchSearchLocation = createAppAsyncThunk('location/fetchSearchLocation', async (value: string) => {
-  const response = await axios.post(`http://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY} &q=${value}&days=6&aqi=no&alerts=no`)
+  const response = await axios.post(`https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY} &q=${value}&days=6&aqi=no&alerts=no`)
   return response.data
 })
 
